@@ -12,6 +12,7 @@
 
 ## TensorFlow 및 기타 라이브러리 가져오기
 from ast import BitAnd
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd

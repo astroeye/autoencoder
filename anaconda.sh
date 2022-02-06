@@ -1,3 +1,43 @@
+$ cat ~/.ssh/id_rsa.pub  #(없으면 아래 실행하여 생성)
+$ cd ~/.ssh/
+$ ssh-keygen -t rsa
+$ cat ~/.ssh/id_rsa.pub # 정보 복사
+
+# Github >> SEttings >> SSH and GPG keys >> SSH keys >> New SSH key
+Title: 원하는 title
+id_rsa.pub 내용 붙여넣기
+
+$ cd c:\workspace
+$ git config --global user.email “astroeye@hotmail.com”
+$ git clone git@github.com:astroeye/autoencoder
+$ cd autoencoder
+
+# 문서 파일 생성, 수정 또는 삭제 후
+$ git add *.*
+$ git commit -m "first commit"
+$ git branch -M main
+$ git remote add origin git@github.com:astroeye/autoencoder.git
+$ git push -u origin main
+
+===============================================================
+# Git Repository 처음 생성 후 나오는 script
+===============================================================
+…or create a new repository on the command line
+echo "# autoencoder" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:astroeye/autoencoder.git
+git push -u origin main
+
+…or push an existing repository from the command line
+git remote add origin git@github.com:astroeye/autoencoder.git
+git branch -M main
+git push -u origin main
+===============================================================
+
+
 #아나콘다 버전 확인
 conda --version
  
@@ -43,6 +83,7 @@ conda search tensorflow
 #라이브버리 설치
 conda install numpy
 conda install tensorflow=2.6.0
+conda install -c anaconda scikit-learn
 
 # 설치된 라이브러리 확인
 conda list
