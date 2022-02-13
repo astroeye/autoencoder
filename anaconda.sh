@@ -51,17 +51,17 @@ python --version
 conda create --name(-n) 가상환경명 설치할패키지
  
 # 예) 파이썬 3.8.12 버전 설치 & sogang04 이름으로 가상환경 생성
-conda create --name sogang04 python=3.8.12
-conda activate sogang04
+conda create --name fd python=3.8.12
+conda activate fd
 
 # tensorflow-datasets 먼저 설치 해야 함
 conda install tensorflow-datasets   # 1.2.0 is installed
 # python=3.8.12 is installed   
 # tensorflow=2.3.0 is installed  
 # numpy=1.21.2 is installed
-conda install pandas                # 1.3.3 is installed
-conda install imageio               # 2.9.0 is installed
-conda install matplotlib            # 3.4.2 is installed
+conda install -c anaconda pandas                # 1.3.3 is installed
+conda install -c anaconda imageio               # 2.9.0 is installed
+conda install -c anaconda matplotlib            # 3.4.2 is installed
 conda install -c anaconda scikit-learn
 
 # 'sogang04'라는 이름의 가상환경 삭제
