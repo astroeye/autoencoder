@@ -62,11 +62,12 @@ conda install tensorflow-datasets   # 1.2.0 is installed
 conda install pandas                # 1.3.3 is installed
 conda install imageio               # 2.9.0 is installed
 conda install matplotlib            # 3.4.2 is installed
+conda install -c anaconda scikit-learn
 
 # 'sogang04'라는 이름의 가상환경 삭제
 C:\Users\dhqlwm8xkdnj0\anaconda3\Scripts\activate
 conda activate base
-conda remove --name sogang04 --all
+conda remove --name tf --all
 
 #설치 된 가상환경 리스트 확인
 conda info --envs

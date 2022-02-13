@@ -24,9 +24,13 @@ from tensorflow.keras import layers, losses
 from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras.models import Model
 
+import autokeras as ak
+
 # 데이터세트 로드하기
 # y_train과 t_test는 할당하지 않는다.
-(x_train, _), (x_test, _) = fashion_mnist.load_data()
+
+# (x_train, _), (x_test, _) = fashion_mnist.load_data()
+(x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 # https://www.tensorflow.org/api_docs/python/tf/keras/datasets/fashion_mnist/load_data
 # Tuple of NumPy arrays: (x_train, y_train), (x_test, y_test).
 # x_train: uint8 NumPy array of grayscale image data with shapes (60000, 28, 28), containing the training data.
@@ -158,14 +162,18 @@ class Autoencoder(Model):
   # tf.keras.Model.call => Calls the model on new inputs and returns the outputs as tensors.
   # call(inputs, training=None, mask=None)
   def call(self, x):
+    print("\n call method called")
     encoded = self.encoder(x)
+    print("self.encoder(x) called")
     decoded = self.decoder(encoded)
-    print("call called")
+    print("self.decoder(encoded) called")
     return decoded
 
 # autoencoder는 object(객체)이다.
 # autoencoder object는 Autoencoder Class의 instance 이다.
+print("before autoencoder obejec creation")
 autoencoder = Autoencoder(latent_dim)
+print("after autoencoder obejec creation")
 
 
 # cost function: 비용함수, 목적함수, 손실함수: 예측값과 식제값의 차이: MSE
@@ -173,17 +181,35 @@ autoencoder = Autoencoder(latent_dim)
 #            옵티마이저를 통해 적절한 W와 b를 장아내는 과정을 머신러닝에서 학습(training)이라고 한다.
 #            경사하강법(Gradient Descent): W(x축)의 변화에 따른 Cost(y축)을 줄이기 위함
 # tf.keras.Model.compile => Configures the model for training.
+
+print("\n before autoencoder.compile()")
 autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError())
+print("\n after autoencoder.compile()")
 
 
 # x_train을 입력과 대상으로 사용하여 모델을 훈련합니다. 
 # encoder는 데이터세트를 784차원에서 잠재 공간으로 압축하는 방법을 배우고,
 # decoder는 원본 이미지를 재구성하는 방법을 배웁니다.
 
-autoencoder.fit(x_train, x_train,
-                epochs=10,
-                shuffle=True,
-                validation_data=(x_test, x_test))
+autoencoder.encoder.summary()
+autoencoder.decoder.summary()
+
+
+# CPU 학습
+print("CPU를 사용한 학습")
+with tf.device("/device:CPU:0"):
+  autoencoder.fit(x_train, x_train,
+                  epochs=10,
+                  shuffle=True,
+                  validation_data=(x_test, x_test))
+
+print("GPU를 사용한 학습")
+with tf.device("/device:GPU:0"):
+  autoencoder.fit(x_train, x_train,
+                  epochs=10,
+                  shuffle=True,
+                  validation_data=(x_test, x_test))
+
 
 # 모델이 훈련되었으므로 테스트 세트에서 이미지를 인코딩 및 디코딩하여 테스트해 보겠습니다.
 encoded_imgs = autoencoder.encoder(x_test).numpy()
