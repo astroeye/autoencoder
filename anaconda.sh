@@ -63,6 +63,8 @@ conda install -c anaconda pandas                # 1.3.3 is installed
 conda install -c anaconda imageio               # 2.9.0 is installed
 conda install -c anaconda matplotlib            # 3.4.2 is installed
 conda install -c anaconda scikit-learn
+conda install -c anaconda tensorflow-gpu
+
 
 # 'sogang04'라는 이름의 가상환경 삭제
 C:\Users\dhqlwm8xkdnj0\anaconda3\Scripts\activate
