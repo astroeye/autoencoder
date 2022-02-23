@@ -24,7 +24,7 @@ from tensorflow.keras import layers, losses
 from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras.models import Model
 
-import autokeras as ak
+#import autokeras as ak
 
 # 데이터세트 로드하기
 # y_train과 t_test는 할당하지 않는다.
@@ -191,10 +191,6 @@ print("\n after autoencoder.compile()")
 # encoder는 데이터세트를 784차원에서 잠재 공간으로 압축하는 방법을 배우고,
 # decoder는 원본 이미지를 재구성하는 방법을 배웁니다.
 
-autoencoder.encoder.summary()
-autoencoder.decoder.summary()
-
-
 # CPU 학습
 print("CPU를 사용한 학습")
 with tf.device("/device:CPU:0"):
@@ -203,13 +199,20 @@ with tf.device("/device:CPU:0"):
                   shuffle=True,
                   validation_data=(x_test, x_test))
 
-print("GPU를 사용한 학습")
-with tf.device("/device:GPU:0"):
-  autoencoder.fit(x_train, x_train,
-                  epochs=10,
-                  shuffle=True,
-                  validation_data=(x_test, x_test))
+# print("GPU를 사용한 학습")
+# with tf.device("/device:GPU:0"):
+#   autoencoder.fit(x_train, x_train,
+#                   epochs=10,
+#                   shuffle=True,
+#                   validation_data=(x_test, x_test))
 
+
+# encoder의 요약을 살펴보겠습니다. 
+# 이미지가 28x28에서 7x7로 어떻게 다운샘플링되는지 확인하세요.
+autoencoder.encoder.summary()
+
+# decoder는 이미지를 7x7에서 28x28로 다시 업샘플링합니다.
+autoencoder.decoder.summary()
 
 # 모델이 훈련되었으므로 테스트 세트에서 이미지를 인코딩 및 디코딩하여 테스트해 보겠습니다.
 encoded_imgs = autoencoder.encoder(x_test).numpy()
