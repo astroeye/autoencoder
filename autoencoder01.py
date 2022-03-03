@@ -83,6 +83,11 @@ print(x_train[0].shape) # (28, 28)
 # https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=ksg97031&logNo=221302568510
 # 위에서 말씀한 거처럼 28 * 28 배열로 원소들이 저장되어 있고 255를 넘는 값이 없습니다.
 # 이는 각각에 원소가 데이터에 기본단위인 Byte(8 bit)로 표현됐기 때문에 0~255 사이에 값으로만 표현됩니다.
+# 1 bit = 0, 1 => 2가지 값을 가질 수 있다.
+# 2 bit = 00, 01, 10, 11 => 2^2=4가지 값을 가질 수 있다.
+# 8 bit = 00 00 00 00 ~ 11 11 11 11 => 2^8=256가지 값을 가질 수 있다.
+# Byte = 주소지정이 가능한 단일 저장소(데이터 파일의 크기)
+
 # (이미지든, 동영상 파일이든 데이터로 된 모든 파일은 기본 단위인 Byte로 표현됩니다. )
 # 0~255 중 최대 범위인 255는 우리가 표준으로 사용하는 10진수이며 
 # 다른 진수 표현으론 16 진수 = 0xff, 8 진수 = 377입니다.
@@ -92,12 +97,16 @@ print(x_train[0].shape) # (28, 28)
 # (8bit=1Byte)
 
 # 1Byte = 8bit = 2^8 = 256 = 0~255
-# Byte는 주소 지정이 가능한 단일 저장소이다.
+# Byte는 주소 지정이 가능한 단일 저장소이다.(데이터 파일의 크기)
 
 # 타입을 바꾸는(astype) 함수를 통해 실수화(float) 된 후 255로 나누어지는(/) 코드가 있습니다.
 # astype('float32') 코드를 통해 실수화해줍니다.
 # 실수 화가 되면 정수 뒤에 "정수. 0"처럼 '.0'이 붙거나 "정수. "처럼 생략됩니다
-# 0~255 값을 0~1사이로 변경해주는 것입니다.
+# 0~255 값을 0~1사이로 변경해주는 것입니다.(float32로 정규화)
+#  https://hdongle.tistory.com/47
+#  사이즈는 더 커짐
+#  딥러닝에 넣을 때, 정규화해서 넣어야 더 잘된다고 함
+#  0~255면 값이 너무 커서 학습이 잘 이뤄지지 않는다고 함
 x_train = x_train.astype('float32') / 255.
 x_test = x_test.astype('float32') / 255.
 
@@ -251,17 +260,71 @@ plt.show()
 x_train = x_train.astype('float32') / 255.
 x_test = x_test.astype('float32') / 255.
 
+# 데이터 size 변경하기
+print(x_train.shape)
+# (60000, 28, 28)
+
+# numpy 방법
+# np.expand_dims(train_x, -1) 
+#  train_x 위치에 변경하려는 배열을 넣어준다.
+#  -1은 가장 뒷부분의 차원을 추가하여준다는 것을 알 수 있다.
+new_x_train = np.expand_dims(x_train, -1)
+print(new_x_train.shape)
+# (60000, 28, 28, 1)
+
+# tensorflow 방법 1
+# numpy 방법과 비슷하다는 것을 알 수 있다.
+new_x_train = tf.expand_dims(x_train, -1)
+print(new_x_train.shape)
+# (60000, 28, 28, 1)
+
+# tensorflow 방법 2
+# train_x [..., tf.newaxis]
+#  이 방법은 [] 안에 기존의 배열을...으로 적고,
+#  추가하고 싶은 위치에 tf.newaxis를 적어주면 간단히 size 변경이 된다.
+new_x_train = x_train[..., tf.newaxis]
+print(new_x_train.shape)
+# (60000, 28, 28, 1)
+new_x_train = x_train[tf.newaxis, ...]
+print(new_x_train.shape)
+# (1, 60000, 28, 28)
+
+# 차원 축소
+# > 차원을 축소하는 방법은 np.squeeze()를 활용하면 간단히 가능하다.
+# np.squeeze 내부에는 축소하고 싶은 인덱스를 넣어주면 된다.
+#  squeeze는 1차원인 축을 모두 제거해 준다
+s_x_train = np.squeeze(new_x_train[0])
+print(s_x_train.shape)
+
+# https://libertegrace.tistory.com/entry/2-Tensorflow20-Xtrain-Data-Preprocess-using-MNIST
+# 3-1. X__train 데이터 shape 확인 후 차원 수 늘리기 
+# 일반적으로 이미지 데이터셋을 보면 (Batch Size, Height, Width, Channel)의 차원이 들어갑니다. 
+# 여기서 Channel이 gray scale이거나 하면 (Batch Size, Height, Width)까지만 나오는데,
+#  이를 (Batch Size, Height, Width, Channel)이렇게바꿔주고 싶을 때 필요합니다.
+# tf.newaxis 사용
 x_train = x_train[..., tf.newaxis]
 x_test = x_test[..., tf.newaxis]
 
-print(x_train.shape)
+print(x_train.shape, x_test.shape)
+#(60000, 28, 28, 1) (10000, 28, 28, 1)
+
+# 3-2. X__train 데이터 shape 확인 후 차원 수 줄이기
+# matplotlib로 이미지 시각화 할 때는 gray scale의 이미지는 3번 째 dimension이
+#  없으므로, 2개의 dimension으로 차원 조절해 주어야 합니다. .squeeze이용
+
+# display = np.sqeeze(new_train_x[0])#.sqeeze 확인
+# display.shape
+
 
 # 이미지에 임의의 노이즈를 추가합니다.
-
+# 텐서플로우에서 random.normal 함수로 정규분포 난수를 발생시키는 간단한 샘플입니다.
+# rand = tf.random.normal([10, 1], 0, 1)
 noise_factor = 0.2
 x_train_noisy = x_train + noise_factor * tf.random.normal(shape=x_train.shape) 
 x_test_noisy = x_test + noise_factor * tf.random.normal(shape=x_test.shape) 
 
+# tf.clip_by_value
+# 텐서 값을 지정된 최소 및 최대로 자릅니다.
 x_train_noisy = tf.clip_by_value(x_train_noisy, clip_value_min=0., clip_value_max=1.)
 x_test_noisy = tf.clip_by_value(x_test_noisy, clip_value_min=0., clip_value_max=1.)
 
@@ -302,10 +365,26 @@ autoencoder = Denoise()
 
 autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError())
 
+
 autoencoder.fit(x_train_noisy, x_train,
                 epochs=10,
                 shuffle=True,
                 validation_data=(x_test_noisy, x_test))
+
+# print("CPU를 사용한 학습")
+with tf.device("/device:CPU:0"):
+  autoencoder.fit(x_train_noisy, x_train,
+                  epochs=10,
+                  shuffle=True,
+                  validation_data=(x_test_noisy, x_test))
+
+# print("GPU를 사용한 학습")
+with tf.device("/device:GPU:0"):
+  autoencoder.fit(x_train_noisy, x_train,
+                  epochs=10,
+                  shuffle=True,
+                  validation_data=(x_test_noisy, x_test))
+
 
 # encoder의 요약을 살펴보겠습니다. 
 # 이미지가 28x28에서 7x7로 어떻게 다운샘플링되는지 확인하세요.
@@ -349,7 +428,11 @@ plt.show()
 # 사용할 데이터세트는 timeseriesclassification.com의 데이터세트를 기반으로 합니다.
 # Download the dataset
 dataframe = pd.read_csv('http://storage.googleapis.com/download.tensorflow.org/data/ecg.csv', header=None)
+print(type(dataframe))          # <class 'pandas.core.frame.DataFrame'>
+print(type(dataframe.values))   # <class 'numpy.ndarray'>
+print(dataframe.values.shape)   # (4998, 141)
 raw_data = dataframe.values
+
 dataframe.head()
 # 5 rows × 141 columns
 
