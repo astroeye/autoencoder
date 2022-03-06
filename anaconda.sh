@@ -52,16 +52,18 @@ conda create --name(-n) 가상환경명 설치할패키지
  
 # 예) 파이썬 3.8.12 버전 설치 & sogang04 이름으로 가상환경 생성
 conda create --name ae python=3.8.12 -y
+# conda create --name ae python=3.9.7 -y # tensorflow-datasets이 Python 3.9 버전에서는 3.9.0만 지원함
 conda activate ae
 
 # tensorflow-datasets 먼저 설치 해야 함
-conda install tensorflow-datasets -y   # 1.2.0 is installed
+conda install tensorflow-datasets -y
+# tensorflow-datasets 1.2.0 is installed
 # python=3.8.12 is installed   
 # tensorflow=2.3.0 is installed  
 # numpy=1.21.2 is installed
-conda install -c anaconda pandas -y                # 1.3.3 is installed
-conda install -c anaconda imageio -y               # 2.9.0 is installed
-conda install -c anaconda matplotlib -y            # 3.4.2 is installed
+conda install -c conda-forge imageio -y
+conda install -c anaconda pandas -y
+conda install -c conda-forge matplotlib -y
 conda install -c anaconda scikit-learn -y
 conda install -c conda-forge opencv -y
 conda install -c conda-forge tensorflow-hub -y
@@ -125,3 +127,31 @@ conda install -c conda-forge matplotlib
 # collection
 # https://anaconda.org/lightsource2-tag/collection
 conda install -c lightsource2-tag collectio
+
+
+'--------------------------------------------'
+# GPU 설정 후 conda 가상환경
+conda activate base
+conda remove --name ae --all -y
+
+conda search -c conda-forge python=3.9  # 3.9.10
+conda create --name ae -c conda-forge python=3.9  # 3.9.10 설치 됨
+conda activate ae
+
+conda search -c conda-forge tensorflow  # 2.7.0
+conda install -c conda-forge tensorflow # 2.6.0 설치 됨
+
+conda search -c conda-forge tensorflow-gpu  # 2.6.0
+conda install -c anaconda tensorflow-gpu    # 2.6.0 설치 됨
+
+conda search -c conda-forge matplotlib   # 3.5.1
+conda install -c conda-forge matplotlib  # 3.5.1 설치 됨
+
+conda search -c conda-forge pandas  # 1.4.1
+conda install -c conda-forge pandas # 1.4.1 설치 됨
+
+conda search -c conda-forge scikit-learn    # 1.0.2
+conda install -c conda-forge scikit-learn   # 1.0.2 설치 됨
+
+# GPU 사용량 확인
+for /l %g in () do @(cls & nvidia-smi & timeout /t 1)

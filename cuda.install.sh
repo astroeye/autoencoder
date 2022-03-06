@@ -4,7 +4,7 @@
  - 그래픽카드: NVIDIA RTX A2000 Laptop GPU 의 컴퓨팅 능력은?
  - 그래픽카드 호환성: compute capability 8.6
  - compute capability 8.6은 CUDA 버전 몇을 지원할까?
- - 호환성별 CUDA 지원 버전: CUDA SDK 11.1 – 11.6 support for compute capability 3.5 – 8.6
+ - 호환성별 CUDA 지원 버전: CUDA SDK 11.1 - 11.6 support for compute capability 3.5 - 8.6
 
  - CUDA 11.1 ~ 11.6를 지원하는 tensorflow_gpu, cuDNN, python 버전을 확인해보자
  	https://www.tensorflow.org/install/source_windows?hl=ko#gpu
@@ -46,9 +46,11 @@ https://www.nvidia.co.kr/download/Find.aspx?lang=kr
 c:\> nvidia-smi
 
 CUDA 11.2.2 설치
+cuda_11.2.2_461.33_win10.exe
 https://developer.nvidia.com/cuda-toolkit-archive
 
 Installing zlib 압축풀어 환경변수 설정
+zlib123dllx64.zip
 https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#install-zlib-windows
 저장하고 환경변수 설정: C:\nvidia_cudnn\zlib123dllx64\dll_x64 
 
@@ -143,6 +145,6 @@ conda list tensorflow
 
 pip freeze | findstr "tensorflow"
 pip install autokeras
-conda install tensorflow-gpu=2.6.0
+conda install -c anaconda tensorflow-gpu=2.6.0
 
 
