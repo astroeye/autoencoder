@@ -77,7 +77,7 @@ autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError())
     #                 validation_data=(x_test_noisy, x_test))
 
 # print("GPU를 사용한 학습")
-with tf.device("/device:GPU:0"):
+with tf.device("/device:XLA_GPU:0"):
     autoencoder.fit(x_train_noisy, x_train,
                     epochs=10,
                     shuffle=True,

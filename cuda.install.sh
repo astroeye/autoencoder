@@ -45,9 +45,13 @@ https://www.nvidia.co.kr/download/Find.aspx?lang=kr
 그래픽 드라이버가 지원하는 CUDA 버전 확인
 c:\> nvidia-smi
 
-CUDA 11.2.2 설치
+CUDA Toolkit 11.2.2 설치
 cuda_11.2.2_461.33_win10.exe
 https://developer.nvidia.com/cuda-toolkit-archive
+
+
+
+
 
 Installing zlib 압축풀어 환경변수 설정
 zlib123dllx64.zip
@@ -88,8 +92,8 @@ conda activate base
 conda remove --name tf --all
 
 conda create --name tf python=3.8.12
-conda activate tf
-conda install tensorflow-datasets
+conda activate ae
+conda install -c anaconda tensorflow-datasets
 
 conda install pandas                # 1.3.3 is installed
 conda install imageio               # 2.9.0 is installed

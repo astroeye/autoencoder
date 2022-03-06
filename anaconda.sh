@@ -155,3 +155,6 @@ conda install -c conda-forge scikit-learn   # 1.0.2 설치 됨
 
 # GPU 사용량 확인
 for /l %g in () do @(cls & nvidia-smi & timeout /t 1)
+
+
+
