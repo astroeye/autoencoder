@@ -33,9 +33,9 @@ https://vitalholic.tistory.com/375
 conda activate base
 conda remove --name ae --all -y
 
-conda create --name ae
+conda create --name ae python=3.8.12
 conda activate ae
-conda install -c anaconda python=3.8.12
+# conda install -c anaconda python=3.8.12
 pip install tensorflow-gpu==2.3.0
 
 python

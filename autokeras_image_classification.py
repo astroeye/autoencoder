@@ -35,7 +35,7 @@ plt.show()
 clf = ak.ImageClassifier(overwrite=True, max_trials=1)
 # Feed the image classifier with training data.
 
-clf.fit(x_train, y_train, epochs=1)
+# clf.fit(x_train, y_train, epochs=1)
 
 # # CPU 학습
 # print("CPU를 사용한 학습")
@@ -44,8 +44,8 @@ clf.fit(x_train, y_train, epochs=1)
 
 # # GPU 학습
 # print("GPU를 사용한 학습")
-# with tf.device("/device:GPU:1"):
-#   clf.fit(x_train, y_train, epochs=3)
+with tf.device("/device:GPU:0"):
+  clf.fit(x_train, y_train, epochs=3)
 
 
 # Export as a Keras Model

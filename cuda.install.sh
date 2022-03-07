@@ -152,3 +152,5 @@ pip install autokeras
 conda install -c anaconda tensorflow-gpu=2.6.0
 
 
+https://www.tensorflow.org/install/gpu 보고 재설치
+또는 https://www.tensorflow.org/install/pip

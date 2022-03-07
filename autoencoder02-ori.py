@@ -8,6 +8,9 @@ from sklearn.model_selection import train_test_split
 from tensorflow.keras import layers, losses
 from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras.models import Model
+import os as os
+
+os.environ [ "TF_FORCE_GPU_ALLOW_GROWTH" ] = "true"
 
 # 이전에 수정한 내용을 생략하기 위해 데이터세트를 다시 가져오겠습니다.
 (x_train, _), (x_test, _) = fashion_mnist.load_data()
@@ -63,10 +66,10 @@ autoencoder = Denoise()
 
 autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError())
 
-# autoencoder.fit(x_train_noisy, x_train,
-#                 epochs=10,
-#                 shuffle=True,
-#                 validation_data=(x_test_noisy, x_test))
+autoencoder.fit(x_train_noisy, x_train,
+                epochs=10,
+                shuffle=True,
+                validation_data=(x_test_noisy, x_test))
 
 # CPU 학습
 # print("CPU를 사용한 학습")
@@ -77,11 +80,11 @@ autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError())
     #                 validation_data=(x_test_noisy, x_test))
 
 # print("GPU를 사용한 학습")
-with tf.device("/device:XLA_GPU:0"):
-    autoencoder.fit(x_train_noisy, x_train,
-                    epochs=10,
-                    shuffle=True,
-                    validation_data=(x_test_noisy, x_test))
+# with tf.device("/device:XLA_GPU:0"):
+#     autoencoder.fit(x_train_noisy, x_train,
+#                     epochs=10,
+#                     shuffle=True,
+#                     validation_data=(x_test_noisy, x_test))
 
 
 # encoder의 요약을 살펴보겠습니다. 이미지가 28x28에서 7x7로 어떻게 다운샘플링되는지 확인하세요.
