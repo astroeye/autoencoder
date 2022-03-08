@@ -53,6 +53,8 @@ https://developer.nvidia.com/cuda-toolkit-archive
 
 
 
+[cuDNN]
+
 Installing zlib 압축풀어 환경변수 설정
 zlib123dllx64.zip
 https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#install-zlib-windows
