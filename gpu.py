@@ -18,3 +18,6 @@ b = tf.constant([[1.0, 2.0], [3.0, 4.0], [5.0, 6.0]])
 c = tf.matmul(a, b)
 
 print(c)
+
+# 메모리 문제 해결
+# https://blog.naver.com/sayney1004/221863897825

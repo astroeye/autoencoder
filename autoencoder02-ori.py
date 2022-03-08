@@ -8,18 +8,20 @@ from sklearn.model_selection import train_test_split
 from tensorflow.keras import layers, losses
 from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras.models import Model
-import os as os
 
+# import os as os
 # os.environ [ "TF_FORCE_GPU_ALLOW_GROWTH" ] = "true"
 
-# config = tf.compat.v1.ConfigProto()
+from tensorflow.compat.v1 import ConfigProto
+from tensorflow.compat.v1 import InteractiveSession
+
+# config = ConfigProto()
 # config.gpu_options.allow_growth = True
-# sess = tf.compat.v1.Session(config=config)
+# session = InteractiveSession(config=config)
 
-# config = tf.compat.v1.ConfigProto()
-# config.gpu_options.per_process_gpu_memory_fraction = 0.8
-# session = tf.compat.v1.Session(config=config)
-
+config = ConfigProto()
+config.gpu_options.per_process_gpu_memory_fraction = 0.6
+session = InteractiveSession(config=config)
 
 (x_train, _), (x_test, _) = fashion_mnist.load_data()
 
