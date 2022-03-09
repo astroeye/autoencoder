@@ -200,10 +200,10 @@ print("\n after autoencoder.compile()")
 # encoder는 데이터세트를 784차원에서 잠재 공간으로 압축하는 방법을 배우고,
 # decoder는 원본 이미지를 재구성하는 방법을 배웁니다.
 
-# autoencoder.fit(x_train, x_train,
-#                 epochs=10,
-#                 shuffle=True,
-#                 validation_data=(x_test, x_test))
+autoencoder.fit(x_train, x_train,
+                epochs=10,
+                shuffle=True,
+                validation_data=(x_test, x_test))
 # CPU 학습
 # print("CPU를 사용한 학습")
 # with tf.device("/device:CPU:0"):
@@ -213,11 +213,11 @@ print("\n after autoencoder.compile()")
 #                   validation_data=(x_test, x_test))
 
 # print("GPU를 사용한 학습")
-with tf.device("/device:GPU:0"):
-  autoencoder.fit(x_train, x_train,
-                  epochs=10,
-                  shuffle=True,
-                  validation_data=(x_test, x_test))
+# with tf.device("/device:GPU:0"):
+#   autoencoder.fit(x_train, x_train,
+#                   epochs=10,
+#                   shuffle=True,
+#                   validation_data=(x_test, x_test))
 
 
 # encoder의 요약을 살펴보겠습니다. 

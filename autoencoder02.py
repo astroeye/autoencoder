@@ -1,18 +1,16 @@
-# https://www.tensorflow.org/tutorials/generative/autoencoder?hl=ko
+# https://www.tensorflow.org/tutorials/generative/autoencoder#second_example_image_denoising
 # 이 튜토리얼에서는 3가지 예(기본 사항, 이미지 노이즈 제거 및 이상 감지)를 통해
-# autoencoder를 소개합니다.
+#  autoencoder를 소개합니다.
 
 # autoencoder는 입력을 출력에 복사하도록 훈련된 특수한 유형의 신경망입니다.
-# 예를 들어, 손으로 쓴 숫자의 이미지가 주어지면 autoencoder는 먼저 이미지를
-# 더 낮은 차원의 잠재 표현으로 인코딩한 다음 잠재 표현을 다시 이미지로 디코딩합니다. 
-# autoencoder는 재구성 오류를 최소화하면서 데이터를 압축하는 방법을 학습합니다.
+#  예를 들어, 손으로 쓴 숫자의 이미지가 주어지면 autoencoder는 먼저 이미지를
+#  더 낮은 차원의 잠재 표현으로 인코딩한 다음 잠재 표현을 다시 이미지로 디코딩합니다.
+#  autoencoder는 재구성 오류를 최소화하면서 데이터를 압축하는 방법을 학습합니다.
 
-# autoencoder에 대해 자세히 알아보려면 Ian Goodfellow, Yoshua Bengio 및 
-# Aaron Courville의 딥 러닝에서 14장을 읽어보세요.
+# autoencoder에 대해 자세히 알아보려면 Ian Goodfellow, Yoshua Bengio 및
+#  Aaron Courville의 딥 러닝에서 14장을 읽어보세요
 
-## TensorFlow 및 기타 라이브러리 가져오기
-from ast import BitAnd
-
+# TensorFlow 및 기타 라이브러리 가져오기
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -24,19 +22,29 @@ from tensorflow.keras import layers, losses
 from tensorflow.keras.datasets import fashion_mnist
 from tensorflow.keras.models import Model
 
-#import autokeras as ak
 
-# 데이터세트 로드하기
-# y_train과 t_test는 할당하지 않는다.
+from tensorflow.compat.v1 import ConfigProto
+from tensorflow.compat.v1 import InteractiveSession
 
-## 두 번째 예: 이미지 노이즈 제거 ##
+# import os as os
+# os.environ [ "TF_FORCE_GPU_ALLOW_GROWTH" ] = "true"
+
+# config = ConfigProto()
+# config.gpu_options.allow_growth = True
+# session = InteractiveSession(config=config)
+
+config = ConfigProto()
+config.gpu_options.per_process_gpu_memory_fraction = 0.6
+session = InteractiveSession(config=config)
+
+
+# 두 번째 예: 이미지 노이즈 제거
+
 # autoencoder는 이미지에서 노이즈를 제거하도록 훈련될 수도 있습니다.
-# 다음 섹션에서는 각 이미지에 임의의 노이즈를 적용하여 
-# Fashion MNIST 데이터세트의 노이즈 버전을 생성합니다. 
-# 그런 다음 노이즈가 있는 이미지를 입력으로 사용하고 
-# 원본 이미지를 대상으로 사용하여 autoencoder를 훈련합니다.
+#  다음 섹션에서는 각 이미지에 임의의 노이즈를 적용하여 Fashion MNIST 데이터세트의 노이즈 버전을 생성합니다.
+#  그런 다음 노이즈가 있는 이미지를 입력으로 사용하고 원본 이미지를 대상으로 사용하여 autoencoder를 훈련합니다.
 
-# 이전에 수정한 내용을 생략하기 위해 데이터세트를 다시 가져오겠습니다
+# 이전에 수정한 내용을 생략하기 위해 데이터세트를 다시 가져오겠습니다.
 (x_train, _), (x_test, _) = fashion_mnist.load_data()
 
 x_train = x_train.astype('float32') / 255.
@@ -97,10 +105,9 @@ print(x_train.shape, x_test.shape)
 # display = np.sqeeze(new_train_x[0])#.sqeeze 확인
 # display.shape
 
-
 # 이미지에 임의의 노이즈를 추가합니다.
 # 텐서플로우에서 random.normal 함수로 정규분포 난수를 발생시키는 간단한 샘플입니다.
-# rand = tf.random.normal([10, 1], 0, 1)
+# 이미지에 임의의 노이즈를 추가합니다.
 noise_factor = 0.2
 x_train_noisy = x_train + noise_factor * tf.random.normal(shape=x_train.shape) 
 x_test_noisy = x_test + noise_factor * tf.random.normal(shape=x_test.shape) 
@@ -111,7 +118,6 @@ x_train_noisy = tf.clip_by_value(x_train_noisy, clip_value_min=0., clip_value_ma
 x_test_noisy = tf.clip_by_value(x_test_noisy, clip_value_min=0., clip_value_max=1.)
 
 # 노이즈가 있는 이미지를 플롯합니다.
-
 n = 10
 plt.figure(figsize=(20, 2))
 for i in range(n):
@@ -122,21 +128,20 @@ for i in range(n):
 plt.show()
 
 # 컨볼루셔널 autoencoder 정의하기
-# 이 예제에서는 encoder에 Conv2D 레이어를 사용하고 decoder에 Conv2DTranspose 
-# 레이어를 사용하여 컨볼루셔널 autoencoder를 훈련합니다.
-
+# 이 예제에서는 encoder에 Conv2D 레이어를 사용하고 decoder에
+#  Conv2DTranspose 레이어를 사용하여 컨볼루셔널 autoencoder를 훈련합니다.
 class Denoise(Model):
   def __init__(self):
     super(Denoise, self).__init__()
     self.encoder = tf.keras.Sequential([
-      layers.Input(shape=(28, 28, 1)), 
-      layers.Conv2D(16, (3,3), activation='relu', padding='same', strides=2),
-      layers.Conv2D(8, (3,3), activation='relu', padding='same', strides=2)])
+      layers.Input(shape=(28, 28, 1)),
+      layers.Conv2D(16, (3, 3), activation='relu', padding='same', strides=2),
+      layers.Conv2D(8, (3, 3), activation='relu', padding='same', strides=2)])
 
     self.decoder = tf.keras.Sequential([
       layers.Conv2DTranspose(8, kernel_size=3, strides=2, activation='relu', padding='same'),
       layers.Conv2DTranspose(16, kernel_size=3, strides=2, activation='relu', padding='same'),
-      layers.Conv2D(1, kernel_size=(3,3), activation='sigmoid', padding='same')])
+      layers.Conv2D(1, kernel_size=(3, 3), activation='sigmoid', padding='same')])
 
   def call(self, x):
     encoded = self.encoder(x)
@@ -147,37 +152,19 @@ autoencoder = Denoise()
 
 autoencoder.compile(optimizer='adam', loss=losses.MeanSquaredError())
 
-
 autoencoder.fit(x_train_noisy, x_train,
                 epochs=10,
                 shuffle=True,
                 validation_data=(x_test_noisy, x_test))
 
-# print("CPU를 사용한 학습")
-# with tf.device("/device:CPU:0"):
-#   autoencoder.fit(x_train_noisy, x_train,
-#                   epochs=10,
-#                   shuffle=True,
-#                   validation_data=(x_test_noisy, x_test))
-
-# print("GPU를 사용한 학습")
-# with tf.device("/device:GPU:0"):
-#   autoencoder.fit(x_train_noisy, x_train,
-#                   epochs=10,
-#                   shuffle=True,
-#                   validation_data=(x_test_noisy, x_test))
-
-
-# encoder의 요약을 살펴보겠습니다. 
-# 이미지가 28x28에서 7x7로 어떻게 다운샘플링되는지 확인하세요.
+# encoder의 요약을 살펴보겠습니다.
+#  이미지가 28x28에서 7x7로 어떻게 다운샘플링되는지 확인하세요.
 autoencoder.encoder.summary()
 
 # decoder는 이미지를 7x7에서 28x28로 다시 업샘플링합니다.
 autoencoder.decoder.summary()
 
-# autoencoder에서 생성된 노이즈가 있는 이미지와 
-# 노이즈가 제거 된 이미지를 모두 플롯합니다.
-
+# autoencoder에서 생성된 노이즈가 있는 이미지와 노이즈가 제거 된 이미지를 모두 플롯합니다.
 encoded_imgs = autoencoder.encoder(x_test).numpy()
 decoded_imgs = autoencoder.decoder(encoded_imgs).numpy()
 
@@ -201,3 +188,4 @@ for i in range(n):
     bx.get_xaxis().set_visible(False)
     bx.get_yaxis().set_visible(False)
 plt.show()
+
