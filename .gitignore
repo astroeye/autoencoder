@@ -1,1 +1,21 @@
+#.vscode/settings.json
+autoencoder/data
 venv
+# ignore all logs
+#*.log
+# ignore test data
+#*.db
+# ignore images
+#*.jpg
+# ignore audio
+*.wav
+# ignore text data
+#*.csv
+# ignore sandbox
+#sandbox.py
+#script.py
+#scripts.py
+#sandbox.py
+#database.db
+#requirements.txt
+#*.pyc
