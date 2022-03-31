@@ -1,14 +1,14 @@
 #.vscode/settings.json
-autoencoder/data
-venv
+#autoencoder/data
+#venv
 # ignore all logs
 #*.log
 # ignore test data
 #*.db
 # ignore images
-#*.jpg
+*.jpg
 # ignore audio
-# *.wav
+*.wav
 # ignore text data
 #*.csv
 # ignore sandbox
