@@ -1,0 +1,353 @@
+@charset "utf-8";
+/* cms83@almacomm.co.kr */
+
+/* common */
+.fl {float:left !important;}
+.fr {float:right !important;}
+.cl {clear:both;}
+.oh {overflow:hidden !important}
+.oyh {overflow-y:hidden !important}
+.oxh {overflow-x:hidden !important}
+.al {text-align:left !important;}
+.ar {text-align:right !important;;}
+.at {vertical-align:top;}
+.am {vertical-align:middle !important;}
+.ac {text-align:center !important;}
+.b {font-weight:bold !important;}
+.nb {font-weight:normal !important;}
+.u {text-decoration:underline !important;}
+.m-n{ margin:0;}
+.ti{ text-indent:-5000px; display:block;}
+.brn {border-right:none !important}
+.bln {border-left:none !important}
+.btn {border-top:none !important}
+.bbn {border-bottom:none !important}
+.brt1px {border-top:1px solid #bdbdbd !important}
+.dib {display:inline-block !important}
+.din {display:inline-none !important}
+.db {display:block !important}
+.dn {display:none !important}
+.psr {position:relative !important; }
+.ls {letter-spacing:-0.1px}
+.ls1 {letter-spacing:-1px;}
+
+
+/* margin */
+.ml0 {margin-left:0 !important}
+.ml2 {margin-left:2px !important}
+.ml3 {margin-left:3px !important}
+.ml5 {margin-left:5px !important}
+.ml6 {margin-left:6px !important}
+.ml10 {margin-left:10px !important}
+.ml12 {margin-left:12px !important}
+.ml14 {margin-left:14px !important}
+.ml16 {margin-left:16px !important}
+.ml18 {margin-left:18px !important}
+.ml20 {margin-left:20px !important}
+.ml23 {margin-left:23px !important}
+.ml24 {margin-left:24px !important}
+.ml25 {margin-left:25px !important}
+.ml28 {margin-left:28px !important}
+.ml29 {margin-left:29px !important}
+.ml30 {margin-left:30px !important}
+.ml35 {margin-left:35px !important}
+.ml40 {margin-left:40px !important}
+.ml46 {margin-left:46px !important}
+.ml50 {margin-left:50px !important}
+.ml57 {margin-left:57px !important}
+.ml60 {margin-left:60px !important}
+.ml82 {margin-left:82px !important}
+.ml124 {margin-left:124px !important}
+.ml224 {margin-left:224px !important}
+
+.m24_mi {margin-left:-24px !important}
+
+.mb0 {margin-bottom:0 !important}
+.mb5 {margin-bottom:5px !important}
+.mb10 {margin-bottom:10px !important}
+.mb13 {margin-bottom:13px !important}
+.mb15 {margin-bottom:15px !important}
+.mb19 {margin-bottom:19px !important}
+.mb20 {margin-bottom:20px !important}
+.mb30 {margin-bottom:30px !important}
+.mb50 {margin-bottom:50px !important}
+.mb76 {margin-bottom:76px !important}
+.mb188 {margin-bottom:188px !important}
+.mb350 {margin-bottom:350px !important}
+
+
+.mmt27 {margin-top:-27px} 
+.mlm1 {margin-left:-1px}
+.mlm21 {margin-left:-21px !important}
+.mbm23 {margin-bottom:-23px !important}
+
+.mt0 {margin-top:0 !important}
+.mt2 {margin-top:2px !important}
+.mt5 {margin-top:5px !important}
+.mt7 {margin-top:7px !important}
+.mt9 {margin-top:9px !important}
+.mt10 {margin-top:10px !important}
+.mt11 {margin-top:11px !important}
+.mt12 {margin-top:12px !important}
+.mt13 {margin-top:13px !important}
+.mt15 {margin-top:15px !important}
+.mt16 {margin-top:16px !important}
+.mt17 {margin-top:17px !important}
+.mt18 {margin-top:18px !important}
+.mt19 {margin-top:19px !important}
+.mt20 {margin-top:20px !important}
+.mt21 {margin-top:21px !important}
+.mt22 {margin-top:22px !important}
+.mt23 {margin-top:23px !important}
+.mt24 {margin-top:24px !important}
+.mt25 {margin-top:25px !important}
+.mt26 {margin-top:26px !important}
+.mt27 {margin-top:27px !important}
+.mt28 {margin-top:28px !important}
+.mt29 {margin-top:29px !important}
+.mt30 {margin-top:30px !important}
+.mt31 {margin-top:31px !important}
+.mt32 {margin-top:32px !important}
+.mt33 {margin-top:33px !important}
+.mt34 {margin-top:34px !important}
+.mt35 {margin-top:35px !important}
+.mt36 {margin-top:36px !important}
+.mt37 {margin-top:37px !important}
+.mt39 {margin-top:39px !important}
+.mt40 {margin-top:40px !important}
+.mt41 {margin-top:40px !important}
+.mt42 {margin-top:42px !important}
+.mt43 {margin-top:43px !important}
+.mt44 {margin-top:44px !important}
+.mt45 {margin-top:45px !important}
+.mt49 {margin-top:49px !important}
+.mt50 {margin-top:50px !important}
+.mt51 {margin-top:51px !important}
+.mt52 {margin-top:52px !important}
+.mt53 {margin-top:53px !important}
+.mt54 {margin-top:54px !important}
+.mt55 {margin-top:55px !important}
+.mt57 {margin-top:57px !important}
+.mt59 {margin-top:59px !important}
+.mt60 {margin-top:60px !important}
+.mt62 {margin-top:62px !important}
+.mt66 {margin-top:66px !important}
+.mt67 {margin-top:67px !important}
+.mt70 {margin-top:70px !important}
+.mt73 {margin-top:73px !important}
+.mt74 {margin-top:74px !important}
+.mt76 {margin-top:76px !important}
+.mt92 {margin-top:92px !important}
+.mt94 {margin-top:94px !important}
+.mt150 {margin-top:150px !important}
+
+.mr0 {margin-right:0 !important}
+.mr4 {margin-right:4px !important}
+.mr5 {margin-right:5px !important}
+.mr6 {margin-right:6px !important}
+.mr7 {margin-right:7px !important}
+.mr10 {margin-right:10px !important}
+.mr11 {margin-right:11px !important}
+.mr12 {margin-right:12px !important}
+.mr16 {margin-right:16px !important}/*150729*/
+.mr20 {margin-right:20px !important}
+.mr27 {margin-right:27px !important}
+.mr30 {margin-right:30px !important}
+.mr37 {margin-right:37px !important}
+.mr60 {margin-right:60px !important}
+.mr70 {margin-right:70px !important}
+.mr72 {margin-right:72px !important}
+.mr114 {margin-right:114px !important}
+
+
+/* padding */
+.pall0 {padding:0 !important}
+.pall15 {padding:15px !important}
+.psdes20 {padding:0 20px !important}
+.pl0 {padding-left:0 !important}
+.pt0 {padding-top:0 !important}
+.pr0 {padding-right:0 !important}
+.pb0 {padding-bottom:0 !important}
+
+.pt5 {padding-top:5px !important}
+.pt10 {padding-top:10px !important}
+.pt20 {padding-top:20px !important}
+.pt75 {padding-top:75px !important}
+
+.pl5 {padding-left:5px !important}
+.pl10 {padding-left:10px !important}
+.pl16 {padding-left:16px !important}
+.pl20 {padding-left:20px !important}
+.pl31 {padding-left:31px !important}
+.pl34 {padding-left:34px !important}
+.pl36 {padding-left:36px !important}
+.pl45 {padding-left:45px !important}
+.pl49 {padding-left:49px !important}
+/*.pl65 {padding-left:65px !important} 2016.04.05 회원체계 삭제*/
+.pl65 {padding-left:210px !important}
+.pl70 {padding-left:70px !important}
+.pl92 {padding-left:92px !important}
+.pl115 {padding-left:115px !important}
+.pl137 {padding-left:137px !important}
+/*.pl150 {padding-left:150px !important} 2016.04.05 회원체계 삭제*/
+.pl150 {padding-left:210px !important}
+.pl151 {padding-left:151px !important}
+
+.pr17 {padding-right:17px !important}
+.pr20 {padding-right:20px !important}
+.pr31 {padding-right:31px !important}
+.pr34 {padding-right:34px !important}
+.pr36 {padding-right:36px !important}
+.pr40 {padding-right:40px !important}
+.pr45 {padding-right:45px !important}
+.pr47 {padding-right:47px !important}
+.pr49 {padding-right:49px !important}
+.pr60 {padding-right:60px !important}
+.pr70 {padding-right:70px !important}
+.pr92 {padding-right:92px !important}
+.pr111 {padding-right:111px !important}
+.pr140 {padding-right:140px !important}
+.pr151 {padding-right:151px !important}
+
+.pb5 {padding-bottom:5px !important}
+.pb10 {padding-bottom:10px !important}
+.pb13 {padding-bottom:13px !important}
+.pb35 {padding-bottom:35px !important}
+.pb110 {padding-bottom:110px !important}
+
+/* skiptoContent */
+a.accessibility01{position:absolute; display:block; width:100%; left:0; text-align:center; top:-10000px; z-index:500; font-size:1.3em}
+a.accessibility01:hover, 
+a.accessibility01:focus, 
+a.accessibility01:active{position: absolute; top: 0; padding: 15px 0; font-weight:bold; color:#fff; background:#1d60a7; z-index:500}
+
+.clfix:after {content: "."; display: block; height: 0px; clear: both; visibility: hidden;}
+* html .clfix {height: 1%;} /* hides from ie-mac */
+
+/* width */
+.w40 {width:40px}
+.w50 {width:50px}
+.w61 {width:61px}
+.w76 {width:76px}
+.w100 {width:100px}
+.w110 {width:110px}
+.w111 {width:111px !important}
+.w120 {width:120px}
+.w150 {width:150px}
+.w160 {width:160px !important}
+.w170 {width:170px !important}
+.w182 {width:182px !important}
+.w183 {width:183px !important}
+.w190 {width:190px !important}
+.w199 {width:199px !important}
+.w200 {width:200px}
+.w226 {width:226px !important}
+.w230 {width:230px !important}
+.w240 {width:240px}
+.w244 {width:244px !important}
+.w246 {width:240px !important}
+.w250 {width:250px !important}
+.w286 {width:286px !important}
+.w333 {width:333px !important}
+.w344 {width:333px !important}
+.w390 {width:390px !important}
+.w400 {width:400px !important}
+.w416 {width:416px !important}
+.w430 {width:430px !important}
+.w448 {width:448px !important}
+.w450 {width:450px !important}
+.w500 {width:500px !important}
+.w520 {width:520px}
+.w588 {width:588px !important}
+.w644 {width:644px}
+.w736 {width:736px}
+
+/* height */
+.h100 {height:100px !important}
+.h108 {height:108px !important}
+.h142 {height:142px !important}
+.h277 {height:277px !important}
+.h298 {height:298px !important}
+
+/* font-color */
+.fc_ed1b24 {color:#ed1b24 !important}
+.fc_d92414 {color:#d92414 !important}
+.fc_db2100 {color:#db2100 !important}
+.fc_f0660a {color:#f0660a !important}
+
+
+/* line-height */
+.lh20 {line-height:20px !important}
+
+.point_orange {font-size:17px; color:#f0660a;}
+.point_orange02 {font-size:12px; color:#f0660a !important;}
+
+/* font-size */
+.fs11 {font-size:11px !important}
+.fs14 {font-size:14px !important}
+.fs17 {font-size:17px !important}
+
+
+/* background */
+.bgn {background:none !important}
+.bg_d92414 {background:#d92414 !important}
+.bg_f0660a {background:#f0660a !important}
+.bg_888 {background:#888 !important}
+
+.hr {border:none; border-bottom:1px solid #c8c8c8; display:block; }
+
+/* font */
+.fontMg {font-family:Malgun Gothic,맑은 고딕}
+.fontDotum {font-family:Dotum, 돋움;}
+
+@font-face{
+font-family:SKPGo_BM_0;
+src:url('/share/fonts/SKPGo_BM_0.eot');
+src:local(※), 
+	url('/share/fonts/SKPGo_BM_0.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SKPGoMM_subset';
+  src: url('/share/fonts/SKPGoMM_subset.eot');
+  src: url('/share/fonts/SKPGoMM_subset.eot?#iefix') format('embedded-opentype'), url('/share/fonts/SKPGoMM_subset.woff') format('woff'), url('/share/fonts/SKPGoMM_subset.woff2') format('woff2'), url('/share/fonts/SKPGoMM_subset.ttf') format('truetype'), url('/share/fonts/SKPGoMM_subset.svg#SKPGoMM_subset') format('svg')
+}
+
+/* btn */
+.button {position:relative; background:none; border:none; padding:0 !important}
+.button span {display:block; }
+.button span img {left:-5px}
+
+
+/* error */
+.notFound {position:absolute; top:50%; left:50%; width:420px; height:320px;  margin:-160px 0 0 -210px; font-family:Dotum, 돋움;}
+.notFound_02 {width:420px; height:240px;  margin:-120px 0 0 -210px; }
+.notFound .h1 {display:block; text-align:center;}
+.notFound dl {margin:20px 0 0 0}
+.notFound dl dt {font-size:24px; color:#000; line-height:30px; margin:0 0 10px 0; text-align:center}
+.notFound dl dd {font-size:12px; color:#636363; margin:0 0 20px 0; line-height:18px; text-align:center}
+.notFound dl dd span {display:block; text-align:center}
+.notFound p {text-align:center}
+
+/* ie8 */
+@media \0screen { 
+ .pl36 {padding-left:39px !important}
+ .pr36 {padding-right:38px !important}
+}
+
+/* ie 9이상 */
+@media all and (monochrome:0) {
+/* @media screen and (min-width:0{{ content }}) { */
+	.pl36 {padding-left:34px !important}
+ 	.pr36 {padding-right:34px !important}
+ }
+
+/* 크롬 */
+@media screen and (-webkit-min-device-pixel-ratio:0){
+	.pl36 {padding-left:36px !important}
+ 	.pr36 {padding-right:37px !important}
+}
+
+
+
+

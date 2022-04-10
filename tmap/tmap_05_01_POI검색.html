@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>simpleMap</title>
+<link rel="stylesheet" type="text/css" href="./share/css/reset.css?version=20170213_1">
+<link rel="stylesheet" type="text/css" href="./share/css/common.css?version=20200526_1">
+<link rel="stylesheet" type="text/css" href="./share/css/style.css?version=20210217_1">
+<!-- <link rel="stylesheet" type="text/css" href="./share/css/fancySelect.css" /> -->
+<link rel="stylesheet" type="text/css" href="./share/css/jquery.selectBoxIt.css?version=20170209_1">
+<link rel="stylesheet" type="text/css" href="./share/css/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="./share/css/icheck.css">
+<link rel="stylesheet" type="text/css" href="./share/css/jquery.bxslider.css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,700&amp;display=swap&amp;subset=korean" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script
+	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxaa00d322aa5c461a8160c21c4a5953e2"></script>
+<script type="text/javascript">
+
+var map, marker;
+var markerArr = [];
+function initTmap(){
+ 	// 1. 지도 띄우기
+	map = new Tmapv2.Map("map_div", {
+		center: new Tmapv2.LatLng(37.570028, 126.986072),
+		width : "70%",
+		height : "400px",
+		zoom : 15,
+		zoomControl : true,
+		scrollwheel : true
+		
+	});
+	
+	// 2. POI 통합 검색 API 요청
+	$("#btn_select").click(function(){
+		
+		var searchKeyword = $('#searchKeyword').val();
+		$.ajax({
+			method:"GET",
+			url:"https://apis.openapi.sk.com/tmap/pois?version=1&format=json&callback=result",
+			async:false,
+			data:{
+				"appKey" : "l7xxaa00d322aa5c461a8160c21c4a5953e2",
+				"searchKeyword" : searchKeyword,
+				"resCoordType" : "EPSG3857",
+				"reqCoordType" : "WGS84GEO",
+				"count" : 10
+			},
+			success:function(response){
+				var resultpoisData = response.searchPoiInfo.pois.poi;
+				
+				// 기존 마커, 팝업 제거
+				if(markerArr.length > 0){
+					for(var i in markerArr){
+						markerArr[i].setMap(null);
+					}
+				}
+				var innerHtml ="";	// Search Reulsts 결과값 노출 위한 변수
+				var positionBounds = new Tmapv2.LatLngBounds();		//맵에 결과물 확인 하기 위한 LatLngBounds객체 생성
+				
+				for(var k in resultpoisData){
+					
+					var noorLat = Number(resultpoisData[k].noorLat);
+					var noorLon = Number(resultpoisData[k].noorLon);
+					var name = resultpoisData[k].name;
+					
+					var pointCng = new Tmapv2.Point(noorLon, noorLat);
+					var projectionCng = new Tmapv2.Projection.convertEPSG3857ToWGS84GEO(pointCng);
+					
+					var lat = projectionCng._lat;
+					var lon = projectionCng._lng;
+					
+					var markerPosition = new Tmapv2.LatLng(lat, lon);
+					
+					marker = new Tmapv2.Marker({
+				 		position : markerPosition,
+				 		//icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_a.png",
+				 		icon : "http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png",
+						iconSize : new Tmapv2.Size(24, 38),
+						title : name,
+						map:map
+				 	});
+					
+					innerHtml += "<li><img src='http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_" + k + ".png' style='vertical-align:middle;'/><span>"+name+"</span></li>";
+					
+					markerArr.push(marker);
+					positionBounds.extend(markerPosition);	// LatLngBounds의 객체 확장
+				}
+				
+				$("#searchResult").html(innerHtml);	//searchResult 결과값 노출
+				map.panToBounds(positionBounds);	// 확장된 bounds의 중심으로 이동시키기
+				map.zoomOut();
+				
+			},
+			error:function(request,status,error){
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	});
+}
+
+</script>
+<body onload="initTmap();">
+
+	
+	<div id="head">
+		<div class="gnbArea">
+			<h1><a href="/index.do"><img src="/images/common/tmap_logo.png" alt="T map"></a></h1>
+			<div id="gnb">
+				<ul>
+					<li class="d1"><a href="/tmap/about_service/tmap_info.do" class="gnb_1"><span class="hide">TMAP</span></a>
+						<div style="display: none;">
+							<ul class="s1">
+								<li class=""><a href="/tmap/about_service/tmap_info.do">서비스 소개</a></li>
+								<li class=""><a href="/tmap/information/install_guide.do">TMAP 이용안내</a></li>
+								<li class=""><a href="/tmap/map_down/install_sms.do">다운로드</a></li>
+								<li class=""><a href="/lbs_biz/etc/contact_us.do">Contact us</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="d2"><a href=" /tmap_for_car/about_service/renaultsamsung_aivi.do" class="gnb_2"><span class="hide">TMAP for Car</span></a>
+						<div style="display: none;">
+							<ul class="s2">									
+								<li class=""><a href="/tmap_for_car/about_service/renaultsamsung_aivi.do">서비스 소개</a></li>									
+								<li class=""><a href="/tmap_for_car/customer/renaultsamsung_aivi.do">고객지원/업데이트</a></li>
+								<li class=""><a href="/tmap_for_car/certified_payment/certification.do">제품인증/결제</a></li>
+								<li class=""><a href="/tmap_for_car/etc/biz_alliance.do">TMAP for Car Biz 제휴</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="d3 last"><a href="/lbs_biz/about_service/tmapforbiz.do" class="gnb_3"><span class="hide">TMAP for Biz.</span></a>
+						<div style="display: none;">
+							<ul class="s3">	
+								<li class=""><a href="/lbs_biz/about_service/tmapforbiz.do">서비스 소개</a></li>
+								
+								<li class=""><a href="/lbs_biz/contents/lbs_contents.do">TMAP Contents</a></li>
+								<li class=""><a href="/lbs_biz/platform/lbs_platform.do">TMAP API</a></li>
+								
+								<li class=""><a href="/lbs_biz/biz/biz_big_data.do">Big Data</a></li>
+								<li class=""><a href="/lbs_biz/etc/partner_affiliate.do">파트너&amp;제휴사</a></li> 
+							</ul>
+						</div>
+					</li>
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div>
+		<div>
+			<input type="text" class="text_custom" id="searchKeyword" name="searchKeyword" value="서울시">	
+			<button id="btn_select">적용하기</button>
+		</div>
+		<div>
+			<div style="width: 30%; float:left;">
+				<div class="title"><strong>Search</strong> Results</div>
+				<div class="rst_wrap">
+					<div class="rst mCustomScrollbar">
+						<ul id="searchResult" name="searchResult">
+							<li>검색결과</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="map_div" class="map_wrap" style="float:left"></div>
+		</div>
+	</div>
+</body>
+</html>
+				

@@ -1,0 +1,9 @@
+TMAP Open API 요금제
+https://openapi.sk.com/api/detailView?svcSeq=4&vtype=product
+
+무료 API 사용한도 
+경로안내: 1,000건
+지도보기: 100,000건
+
+TMAP Oepn API Guide
+http://tmapapis.sktelecom.com/main.html#webv2/guide/apiGuide.guide1
