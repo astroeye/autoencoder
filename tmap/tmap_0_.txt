@@ -7,3 +7,7 @@ https://openapi.sk.com/api/detailView?svcSeq=4&vtype=product
 
 TMAP Oepn API Guide
 http://tmapapis.sktelecom.com/main.html#webv2/guide/apiGuide.guide1
+
+
+POI 지도제보
+https://www.tmap.co.kr/my_tmap/my_map_tip/map_tip.do

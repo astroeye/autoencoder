@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>simpleMap</title>
+<script
+	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxaa00d322aa5c461a8160c21c4a5953e2"></script>
+<script type="text/javascript">
+	// 페이지가 로딩이 된 후 호출하는 함수입니다.
+	function initTmap(){
+		// map 생성
+		// Tmapv2.Map을 이용하여, 지도가 들어갈 div, 넓이, 높이를 설정합니다.
+		var map = new Tmapv2.Map("map_div", { // 지도가 생성될 div
+			center: new Tmapv2.LatLng(37.31080743191590,126.94716842651300),
+			width : "100%", // 지도의 넓이
+			height : "600px", // 지도의 높이
+			zoom : 11
+		});
+	} 
+
+
+
+	// 2. 시작, 도착 심볼찍기
+
+	var markerList = [];
+	var pointArray = [];
+
+		// 시작
+		addMarker("llStart",127.02810900563199,37.519892712436906,1);
+		// 도착 
+		addMarker("llEnd",127.11971717230388,37.49288934463672,2);
+		function addMarker(status, lon, lat, tag) {
+		//출도착경유구분
+		//이미지 파일 변경.
+		var markerLayer;
+		switch (status) {
+			case "llStart":
+				imgURL = 'http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png';
+				break;
+			case "llPass":
+				imgURL = 'http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_p.png';
+				break;
+			case "llEnd":
+				imgURL = 'http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png';
+				break;
+			default:
+		};
+		var marker = new Tmapv2.Marker({
+			position: new Tmapv2.LatLng(lat,lon),
+			icon: imgURL,
+			map: map
+		});
+		// 마커 드래그 설정
+		marker.tag = tag;
+		marker.addListener("dragend", function (evt) {
+		markerListenerEvent(evt);
+		});
+		marker.addListener("drag", function (evt) {    	
+			markerObject = markerList[tag];
+		});
+		markerList[tag] = marker;
+		return marker;
+	}
+
+
+<script>							
+// 1. 지도 띄우기
+map = new Tmapv2.Map("map_div", {
+	center: new Tmapv2.LatLng(37.52084364186228,127.058908811749),
+	width: "100%",
+	height: "400px"
+});
+
+
+// 2. 시작, 도착 심볼찍기
+
+var markerList = [];
+var pointArray = [];
+
+	// 시작
+	addMarker("llStart",127.02810900563199,37.519892712436906,1);
+	// 도착 
+	addMarker("llEnd",127.11971717230388,37.49288934463672,2);
+	function addMarker(status, lon, lat, tag) {
+	//출도착경유구분
+	//이미지 파일 변경.
+	var markerLayer;
+	switch (status) {
+		case "llStart":
+			imgURL = 'http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_s.png';
+			break;
+		case "llPass":
+			imgURL = 'http://tmapapi.sktelecom.com/upload/tmap/marker/pin_b_m_p.png';
+			break;
+		case "llEnd":
+			imgURL = 'http://tmapapi.sktelecom.com/upload/tmap/marker/pin_r_m_e.png';
+			break;
+		default:
+	};
+	var marker = new Tmapv2.Marker({
+		position: new Tmapv2.LatLng(lat,lon),
+		icon: imgURL,
+		map: map
+	});
+	// 마커 드래그 설정
+	marker.tag = tag;
+	marker.addListener("dragend", function (evt) {
+	markerListenerEvent(evt);
+    });
+    marker.addListener("drag", function (evt) {    	
+    	markerObject = markerList[tag];
+    });
+    markerList[tag] = marker;
+	return marker;
+}
+
+
+
+</script>
+
+</script>
+</head>
+<body onload="initTmap()"><!-- 맵 생성 실행 -->
+	<div id="map_div"></div>
+</body>
+</html>
