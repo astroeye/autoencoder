@@ -1,0 +1,26 @@
+
+https://mechengineering.tistory.com/405
+
+DFT (Discrete Fourier transform, 이산 푸리에 변환)
+이산화된 시간 영역의 데이터를 이산화된 주파수 영역으로 변환해주는 알고리즘
+
+FFT (Fast Fourier transform, 고속 푸리에 변환)
+이산 푸리에 변환 (discrete Fourier transform, DFT)과 그 역변환을 빠르게 수행하는 알고리즘
+
+DTFT (Discrete-time Fourier transform)
+이산화된 시간영역의 데이터를 연속된 주파수 영역으로 변환해주는 방법
+
+fs (sampling frequency) or sr (sampling rate)
+1초에 측정되는 데이터의 개수이다. 0.1 초 간격으로 데이터를 측정하면 10 Hz가 샘플링 주파수 fs가 된다. fs는 FFT 결과에서 최대 주파수를 정한다
+
+
+https://sanghyu.tistory.com/37
+Spectrogram은 위와 같은 그림으로 표현할 수 있다.
+ x축은 시간 축(단위: frame), y축은 주파수를 의미한다.
+ 그리고 각 시간당 주파수가 가지는 값을 값의 크기에 따라 색으로 표현하여 3차원을 2차원으로 표현하게 된다. 
+ 즉, 시간의 흐름을 가지는 푸리에 변환이라고 생각할 수 있다.
+ 각각의 frame(짧은 시간으로 자른 신호)이 각 주파수성분을 얼마만큼 가지고 있는 지 표현하게 된다.
+ STFT의 단순히 magnitude 부분을 취해서 db스케일로만 변환해주면 spectrogram이 된다.
+ 
+
+ 
