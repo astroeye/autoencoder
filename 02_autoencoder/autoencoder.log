@@ -22063,3 +22063,4 @@ DEBUG:matplotlib.colorbar:locator: <matplotlib.ticker.AutoLocator object at 0x00
 DEBUG:matplotlib.colorbar:locator: <matplotlib.ticker.AutoLocator object at 0x0000023E5097C670>
 DEBUG:matplotlib.colorbar:locator: <matplotlib.ticker.AutoLocator object at 0x0000023E4A474160>
 DEBUG:matplotlib.colorbar:locator: <matplotlib.ticker.AutoLocator object at 0x0000023E438963D0>
+INFO:tensorflow:Assets written to: ./model/assets
