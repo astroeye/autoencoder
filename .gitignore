@@ -21,4 +21,5 @@
 #*.pyc
 *.zip
 *.pb
+*.csv
 model
