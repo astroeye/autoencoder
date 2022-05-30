@@ -19,6 +19,7 @@
 #database.db
 #requirements.txt
 #*.pyc
+*.log
 *.zip
 *.pb
 *.csv
